@@ -36,6 +36,10 @@ class ATheTransvestigatorCharacter : public ACharacter
 	/** Move Input Action */
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category=Input, meta=(AllowPrivateAccess = "true"))
 	UInputAction* MoveAction;
+
+	// Referebce to TransvestigatorPistol
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Weapon", meta=(AllowPrivateAccess = "true"))
+	TSubclassOf<class AActor> TransvestigatorPistol;
 	
 public:
 	ATheTransvestigatorCharacter();
@@ -66,6 +70,8 @@ public:
 	USkeletalMeshComponent* GetMesh1P() const { return Mesh1P; }
 	/** Returns FirstPersonCameraComponent subobject **/
 	UCameraComponent* GetFirstPersonCameraComponent() const { return FirstPersonCameraComponent; }
+
+	void EquipPistol();
 
 };
 

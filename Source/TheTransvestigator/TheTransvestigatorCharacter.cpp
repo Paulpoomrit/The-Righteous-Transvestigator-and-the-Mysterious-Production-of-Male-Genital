@@ -10,6 +10,7 @@
 #include "EnhancedInputSubsystems.h"
 #include "InputActionValue.h"
 #include "Engine/LocalPlayer.h"
+#include "Kismet/GameplayStatics.h"
 
 DEFINE_LOG_CATEGORY(LogTemplateCharacter);
 
@@ -65,6 +66,18 @@ void ATheTransvestigatorCharacter::SetupPlayerInputComponent(UInputComponent* Pl
 	{
 		UE_LOG(LogTemplateCharacter, Error, TEXT("'%s' Failed to find an Enhanced Input Component! This template is built to use the Enhanced Input system. If you intend to use the legacy system, then you will need to update this C++ file."), *GetNameSafe(this));
 	}
+}
+
+void ATheTransvestigatorCharacter::EquipPistol()
+{
+	APlayerController* PlayerController = Cast<APlayerController>(GetController());
+	const FRotator PlayerRotation = PlayerController->PlayerCameraManager->GetCameraRotation();
+	const FVector PlayerLocation = GetOwner()->GetActorLocation();
+
+	FActorSpawnParameters SpawnParameters;
+	SpawnParameters.SpawnCollisionHandlingOverride = ESpawnActorCollisionHandlingMethod::AlwaysSpawn;
+
+	AActor* Pistol = GetWorld()->SpawnActor<AActor>(TransvestigatorPistol, PlayerLocation, PlayerRotation, SpawnParameters);
 }
 
 
